@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Storeitem {
+  type            String
+  id              String            @id @default(uuid())
+  title           String
+  author          String
+  price           Float
+  pages           Int
+  publisher       String
+  publicationYear Int
+  binding         String
+  imgURL          String
+  description     String
+  avargeRate      Float
+  Opinions        Opinion[]
+  StoreitemInCart StoreitemInCart[]
+}
+
+model StoreitemInCart {
+  Storeitem   Storeitem @relation(fields: [storeitemId], references: [id])
+  storeitemId String
+  User        User      @relation(fields: [userId], references: [id])
+  userId      String
+  quantity    Int
+
+  @@id([storeitemId, userId])
+}
+
+model User {
+  id              String            @id @default(uuid())
+  username        String            @unique
+  email           String            @unique
+  password        String
+  name            String
+  lastname        String
+  profileImgURL   String
+  shippingAddress String
+  shippingCity    String
+  registredAt     DateTime          @default(now())
+  Opinions        Opinion[]
+  Cart            StoreitemInCart[]
+}
+
+model Opinion {
+  // id          String    @id @default(uuid())
+  Author      User      @relation(fields: [authorId], references: [id])
+  Storeitem   Storeitem @relation(fields: [storeitemId], references: [id])
+  rate        Int
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  authorId    String
+  storeitemId String
+
+  @@unique([authorId, storeitemId])
+}
