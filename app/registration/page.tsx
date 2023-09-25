@@ -28,10 +28,12 @@ export default function Registration() {
     }
   }, [session.status]);
 
+  return "Registration in development";
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 mt-7">
       <div className="flex flex-col items-center">
-        <h1 className="text-3xl text-center mb-5">Welcome back to Gosia Bookstore</h1>
+        <h1 className="text-3xl text-center mb-5">Welcome to Marketta Bookstore</h1>
         <h3 className={errorMessage ? "text-xl px-3 py-2 bg-red-600 mb-5" : "mb-2"}>{errorMessage}</h3>
         <form
           action={handleSubmit}

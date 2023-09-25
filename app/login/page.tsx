@@ -25,41 +25,21 @@ export default function Login() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-7 [&_h1]:text-3xl [&_h1]:text-center [&_h1]:mb-5">
       <div className="flex flex-col items-center">
-        <h1>Welcome back to Gosia Bookstore</h1>
-        <h3
-          className={
-            errorMessage ? "text-xl px-3 py-2 bg-red-600 mb-5" : "mb-2"
-          }
-        >
-          {errorMessage}
-        </h3>
+        <h1>Welcome back to Marketta Bookstore</h1>
+        <h3 className={errorMessage ? "text-xl px-3 py-2 bg-red-600 mb-5" : "mb-2"}>{errorMessage}</h3>
         <form
           action={handleSubmit}
           className="[&_input]:bg-black [&_input]:border-2 [&_input]:py-2 [&_input]:px-4 [&_input]:outline-none [&_input:focus]:bg-gray-700 space-y-3"
         >
-          <input
-            name="usernameOrEmail"
-            type="text"
-            placeholder="Username or E-mail"
-          />
+          <input name="usernameOrEmail" type="text" placeholder="Username or E-mail" />
           <div className="relative">
-            <input
-              name="password"
-              type={isPasswordVisible ? "text" : "password"}
-              placeholder="Password"
-            />
+            <input name="password" type={isPasswordVisible ? "text" : "password"} placeholder="Password" />
             <button
               className="absolute top-1/2 right-2 -translate-x-1/2 -translate-y-1/2"
               type="button"
               onClick={() => setIsPasswordVisible((prev) => !prev)}
             >
-              <Image
-                src={"/svg/show-password.svg"}
-                className="invert"
-                alt="show password"
-                width={20}
-                height={20}
-              />
+              <Image src={"/svg/show-password.svg"} className="invert" alt="show password" width={20} height={20} />
             </button>
           </div>
           <Button className="mx-auto" type="submit">
