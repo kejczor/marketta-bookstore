@@ -3,13 +3,7 @@
 import type { StoreitemInCart } from "@prisma/client";
 import { localStorageCart, localStorageCartDetails } from "./localStorageApi";
 import { useSession } from "next-auth/react";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import type { PATCH_BODY } from "@app/api/user/cart/route";
 import type { StoreitemBasicDetails } from "@app/api/storeitems/route";
 import { areEqual } from "@utils/functions";
@@ -20,20 +14,21 @@ type CartContext = {
   items: CartItem[];
   itemsDetails: StoreitemBasicDetails[];
   quantityInCart: (storeitemId: string) => number;
+  countTotalItemsQuantity: () => number;
   countTotalCartValue: () => number;
   addToCart: (details: StoreitemBasicDetails) => void;
   removeFromCart: (storeitemId: string) => void;
   incrementQuantity: (storeitemId: string) => void;
   decrementQuantity: (storeitemId: string) => void;
+  /**
+   * @param quantity has to be > 0
+   */
+  setQuantity: (storeitemId: string, quantity: number) => void;
 };
 
 const CartContext = createContext<CartContext>({} as CartContext);
 
-export default function CartContextProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function CartContextProvider({ children }: { children: ReactNode }) {
   // items state stores ids of items inside the user's cart
   const [items, setItems] = useState<CartItem[]>([]);
   const [itemsDetails, setItemsDetails] = useState<StoreitemBasicDetails[]>([]);
@@ -92,9 +87,7 @@ export default function CartContextProvider({
     ) {
       const fetchCartItemsDetails = async () => {
         const res = await fetch(
-          `/api/storeitems?basic=true&id=${items
-            .map((item) => item.storeitemId)
-            .join("&id=")}`
+          `/api/storeitems?basic=true&id=${items.map((item) => item.storeitemId).join("&id=")}`
         );
         const data = await res.json();
         console.log(data);
@@ -122,18 +115,17 @@ export default function CartContextProvider({
   }, [session?.user, items, itemsDetails, areItemsDetailsFetching]);
 
   function quantityInCart(storeitemId: string) {
-    return (
-      items.find(({ storeitemId: cartitemId }) => cartitemId === storeitemId)
-        ?.quantity ?? 0
-    );
+    return items.find(({ storeitemId: cartitemId }) => cartitemId === storeitemId)?.quantity ?? 0;
+  }
+
+  function countTotalItemsQuantity() {
+    return items.reduce((totalQuantity, item) => totalQuantity + item.quantity, 0);
   }
 
   function countTotalCartValue() {
     return items.reduce((totalValue, item) => {
       return (
-        totalValue +
-        item.quantity *
-          (itemsDetails.find(({ id }) => id === item.storeitemId)?.price ?? 0)
+        totalValue + item.quantity * (itemsDetails.find(({ id }) => id === item.storeitemId)?.price ?? 0)
       ); // when item's details were not fetched yet it does not count real value, just return 0
     }, 0);
   }
@@ -145,9 +137,7 @@ export default function CartContextProvider({
 
   function removeFromCart(storeitemId: string) {
     setItems((currentCart) => {
-      const newCart = currentCart.filter(
-        ({ storeitemId: cartitemId }) => cartitemId !== storeitemId
-      );
+      const newCart = currentCart.filter(({ storeitemId: cartitemId }) => cartitemId !== storeitemId);
       localStorageCart.set(newCart);
       return newCart;
     });
@@ -156,11 +146,9 @@ export default function CartContextProvider({
   function incrementQuantity(storeitemId: string) {
     setItems((currentCart) => {
       const newCart = [...currentCart];
-      const storeitemInCart = newCart.find(
-        ({ storeitemId: cartitemId }) => cartitemId === storeitemId
-      );
+      const storeitemInCart = newCart.find(({ storeitemId: cartitemId }) => cartitemId === storeitemId);
       if (storeitemInCart) {
-        // this item is already in cart, so we increment its quantity
+        // this item is already in cart, so increment its quantity
         storeitemInCart.quantity++;
       } else {
         newCart.push({
@@ -176,18 +164,30 @@ export default function CartContextProvider({
   function decrementQuantity(storeitemId: string) {
     setItems((currentCart) => {
       let newCart = [...currentCart];
-      const storeitemInCart = newCart.find(
-        ({ storeitemId: cartitemId }) => cartitemId === storeitemId
-      );
+      const storeitemInCart = newCart.find(({ storeitemId: cartitemId }) => cartitemId === storeitemId);
+      if (!storeitemInCart) return newCart;
+
+      // perform any operations only if storeitem is in cart, otherwise treat function call as a misscall
+      if (storeitemInCart.quantity === 1) {
+        removeFromCart(storeitemId);
+      } else {
+        // this item will still be in cart, so decrement its quantity
+        storeitemInCart.quantity--;
+      }
+      localStorageCart.set(newCart);
+
+      return newCart;
+    });
+  }
+
+  function setQuantity(storeitemId: string, quantity: number) {
+    if (quantity <= 0) return;
+
+    setItems((currentCart) => {
+      let newCart = [...currentCart];
+      const storeitemInCart = newCart.find(({ storeitemId: cartitemId }) => cartitemId === storeitemId);
       if (storeitemInCart) {
-        // we perform any operations only if storeitem is in cart, otherwise treat function call as a misscall
-        if (storeitemInCart.quantity === 1) {
-          removeFromCart(storeitemId);
-        } else {
-          // this item will still be in cart, so we decrement its quantity
-          storeitemInCart.quantity--;
-        }
-        localStorageCart.set(newCart);
+        storeitemInCart.quantity = quantity;
       }
       return newCart;
     });
@@ -201,9 +201,11 @@ export default function CartContextProvider({
         addToCart,
         removeFromCart,
         quantityInCart,
+        countTotalItemsQuantity,
         countTotalCartValue,
         incrementQuantity,
         decrementQuantity,
+        setQuantity,
       }}
     >
       {children}

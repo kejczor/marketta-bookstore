@@ -15,9 +15,11 @@ export default function Login() {
     const hasLogged = await signIn("credentials", {
       usernameOrEmail: data.get("usernameOrEmail"),
       password: data.get("password"),
-      redirect: true,
-      callbackUrl: "/account",
+      // redirect: true,
+      // callbackUrl: "/account",
     });
+
+    console.log(hasLogged);
 
     if (!hasLogged) setErrorMessage("Incorrect login or password.");
   }
@@ -29,6 +31,7 @@ export default function Login() {
         <h3 className={errorMessage ? "text-xl px-3 py-2 bg-red-600 mb-5" : "mb-2"}>{errorMessage}</h3>
         <form
           action={handleSubmit}
+          onSubmit={(e) => e.preventDefault()}
           className="[&_input]:bg-black [&_input]:border-2 [&_input]:py-2 [&_input]:px-4 [&_input]:outline-none [&_input:focus]:bg-gray-700 space-y-3"
         >
           <input name="usernameOrEmail" type="text" placeholder="Username or E-mail" />
@@ -39,7 +42,13 @@ export default function Login() {
               type="button"
               onClick={() => setIsPasswordVisible((prev) => !prev)}
             >
-              <Image src={"/svg/show-password.svg"} className="invert" alt="show password" width={20} height={20} />
+              <Image
+                src={"/svg/show-password.svg"}
+                className="invert"
+                alt="show password"
+                width={20}
+                height={20}
+              />
             </button>
           </div>
           <Button className="mx-auto" type="submit">
@@ -50,7 +59,7 @@ export default function Login() {
       <div>
         <h1>Don&apos;t have an account?</h1>
         <Link href={"/registration"}>
-          <Button className="mx-auto">SIGN IN NOW!</Button>
+          <Button className="mx-auto">SIGN IN NOW</Button>
         </Link>
       </div>
     </div>

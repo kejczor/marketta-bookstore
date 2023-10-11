@@ -3,13 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { redirect, usePathname } from "next/navigation";
-import { useCart } from "@context/CartContext";
 
 export default function Dropdown() {
-  const pathname = usePathname();
   const { data: session } = useSession();
-  const cart = useCart();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -49,17 +45,13 @@ export default function Dropdown() {
         }}
       >
         <Image
-          className={`rounded-full inline aspect-square ${
-            session ? "" : "invert"
-          }`}
+          className={`rounded-full inline aspect-square ${session ? "" : "invert"}`}
           src={session?.user?.image ?? "/svg/account-circle.svg"}
           alt="account"
           width={30}
           height={30}
         />
-        <span className={`hidden sm:inline ml-2 text-base`}>
-          {session?.user.name ?? "Log in"}
-        </span>
+        <span className={`hidden sm:inline ml-2 text-base`}>{session?.user.name ?? "Log in"}</span>
       </button>
 
       {/* dropdown part */}
@@ -68,7 +60,7 @@ export default function Dropdown() {
         className={`${
           isDropdownOpen ? "" : "hidden"
         } absolute right-0 top-16 text-sm divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700 
-                  [&>div]:py-2 [&>div>*]:py-2 [&>div>*]:px-4 [&>div>*:hover]:bg-gray-600 [&>div>*:hover]:text-white [&>div>*]:block`}
+                  [&>div]:py-2 [&>div>*]:py-2 [&>div>*]:px-4 [&>div>a:hover]:bg-gray-600 [&>div>a:hover]:text-white [&>div>a]:block`}
       >
         <div>
           <Link onClick={() => setIsDropdownOpen(false)} href="/account">
@@ -83,7 +75,7 @@ export default function Dropdown() {
         </div>
         <div>
           <button
-            className="w-full text-start"
+            className="w-full text-start bg-red-400 hover:bg-red-300"
             onClick={() => {
               signOut();
               setIsDropdownOpen(false);

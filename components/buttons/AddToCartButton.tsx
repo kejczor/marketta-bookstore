@@ -5,18 +5,14 @@ import Button from "./Button";
 import Image from "next/image";
 import type { StoreitemBasicDetails } from "@app/api/storeitems/route";
 
-export default function AddToCartButton({
-  details,
-}: {
-  details: StoreitemBasicDetails;
-}) {
+export default function AddToCartButton({ details }: { details: StoreitemBasicDetails }) {
   const cart = useCart();
   const storeitemInCartQuantity = cart.quantityInCart(details.id);
   if (storeitemInCartQuantity) {
     return (
       <div className="flex items-center">
         <Button
-          className="flex-grow mr-3 py-2 bg-red-900 flex flex-wrap whitespace-nowrap overflow-hidden h-12"
+          className="flex-grow  mr-3 py-2 bg-red-600 bg-opacity-50 flex flex-wrap whitespace-nowrap overflow-hidden h-12"
           onClick={() => cart.removeFromCart(details.id)}
         >
           <Image
@@ -30,21 +26,16 @@ export default function AddToCartButton({
             Remove from cart
           </span>
         </Button>
+
         <div className="aspect-square h-full">
-          <Button
-            className="w-full h-full"
-            onClick={() => cart.incrementQuantity(details.id)}
-          >
-            +
+          <Button className="w-full h-full" onClick={() => cart.decrementQuantity(details.id)}>
+            -
           </Button>
         </div>
         <span className="mx-3 w-6 text-center">{storeitemInCartQuantity}</span>
         <div className="aspect-square h-full">
-          <Button
-            className="w-full h-full"
-            onClick={() => cart.decrementQuantity(details.id)}
-          >
-            -
+          <Button className="w-full h-full" onClick={() => cart.incrementQuantity(details.id)}>
+            +
           </Button>
         </div>
       </div>

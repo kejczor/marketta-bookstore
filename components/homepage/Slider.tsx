@@ -38,7 +38,7 @@ export default function Slider({ banersNumber }: { banersNumber: number }) {
             onClick={() => setCurrBaner(i + 1)}
           >
             <div
-              className={`w-9 h-1 duration-200 group-hover:h-3 group-hover:transition-all  ${
+              className={`w-9 h-1 duration-200 rounded-xl group-hover:h-3 group-hover:transition-all  ${
                 currBaner === i + 1 ? "bg-blue-500" : "bg-neutral-500"
               }`}
             />

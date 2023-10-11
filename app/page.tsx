@@ -6,7 +6,6 @@ export default async function Home() {
       <div>
         <Slider banersNumber={3} />
       </div>
-      <button>Add to session storage</button>
     </main>
   );
 }
