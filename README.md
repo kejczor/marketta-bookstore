@@ -1,10 +1,8 @@
-
 # Marketta Bookstore
 
 My first serious attempt to create an online store, which includes APIs,  
 server-side rendering, user login system, management and merging of local  
 and server copies, connection security and much more.
-
 
 ## Run Locally
 
@@ -27,13 +25,14 @@ Install dependencies
 ```
 
 Create an .env file
+
 ```bash
   touch .env
 ```
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`DATABASE_URL="file:./dev.db"`
+`DATABASE_URL=file:./dev.db`
 
 `NEXTAUTH_SECRET=some_secret_key`
 
@@ -45,6 +44,11 @@ Finally start the server
   npm run dev
 ```
 
+## Account
+
+There's currently only 1 account. Log in to test features only for users
+**Login:** `admin`
+**Password:** `123`
 
 ## Technologies
 
@@ -55,8 +59,6 @@ Finally start the server
 - Authentication: **NextAuth.js**
 - Styles: **TailwindCSS**
 
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
