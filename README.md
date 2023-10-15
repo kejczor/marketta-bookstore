@@ -46,8 +46,8 @@ Finally start the server
 
 ## Account
 
-There's currently only 1 account. Log in to test features only for users
-**Login:** `admin`
+There's currently only 1 account. Log in to test features only for users  
+**Login:** `admin`  
 **Password:** `123`
 
 ## Technologies
