@@ -36,7 +36,7 @@ export default function Dropdown() {
 
   return (
     <div className="relative">
-      <LoginButton></LoginButton>
+      <LoginButton />
 
       {/* dropdown part */}
       <div

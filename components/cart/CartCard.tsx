@@ -4,8 +4,17 @@ import Link from "next/link";
 import { formatPrice } from "@utils/functions";
 import type { StoreitemBasicDetails } from "@app/api/storeitems/route";
 import AddToCartButtonExtended from "@components/buttons/AddToCartButtonDropdown";
+import { useCart } from "@context/CartContext";
 
-export default function CartCard({ details }: { details: StoreitemBasicDetails }) {
+export default function CartCard({
+  details,
+}: {
+  details: StoreitemBasicDetails;
+}) {
+  const cart = useCart();
+  const storeitemInCartQuantity = cart.quantityInCart(details.id);
+  const totalPrice = formatPrice(details.price * storeitemInCartQuantity);
+
   return (
     <>
       <div className="flex">
@@ -36,6 +45,7 @@ export default function CartCard({ details }: { details: StoreitemBasicDetails }
             <span className="mr-7">{formatPrice(details.price)}</span>
             <AddToCartButtonExtended details={details} />
           </div>
+          <span className="text-2xl font-bold">{totalPrice}</span>
         </div>
       </div>
     </>

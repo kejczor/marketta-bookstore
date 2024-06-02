@@ -24,18 +24,28 @@ export default function Navbar() {
           <div className="flex items-center pt-2">
             <div
               className={`flex items-center h-full border-b-2 ${
-                pathname === "/" ? "border-b-neutral-100" : "border-b-transparent"
+                pathname === "/"
+                  ? "border-b-neutral-100"
+                  : "border-b-transparent"
               }`}
             >
               <Link className="p-2 relative group" href={"/"}>
-                <Image className="inline mr-1" src={"/svg/logo.svg"} alt="logo" width={40} height={40} />
+                <Image
+                  className="inline mr-1"
+                  src={"/svg/logo.svg"}
+                  alt="logo"
+                  width={40}
+                  height={40}
+                />
                 <span>Home</span>
                 <div className="absolute transition-all duration-1000 opacity-40 inset-7 bg-white rounded-xl blur-lg group-hover:opacity-40 group-hover:inset-1 group-hover:duration-200 animate-tilt"></div>
               </Link>
             </div>
             <div
               className={`flex items-center h-full border-b-2 ${
-                pathname.startsWith("/store") ? "border-b-neutral-100" : "border-b-transparent"
+                pathname.startsWith("/store")
+                  ? "border-b-neutral-100"
+                  : "border-b-transparent"
               }`}
             >
               <Link className="p-2 relative group" href={"/store"}>
@@ -45,7 +55,9 @@ export default function Navbar() {
             </div>
             <div
               className={`flex items-center h-full border-b-2 ${
-                pathname.startsWith("/about") ? "border-b-neutral-100" : "border-b-transparent"
+                pathname.startsWith("/about")
+                  ? "border-b-neutral-100"
+                  : "border-b-transparent"
               }`}
             >
               <Link className="p-2 relative group" href={"/about"}>
@@ -57,7 +69,9 @@ export default function Navbar() {
           <div className="flex items-center space-x-3">
             <div
               className={`flex items-center h-full border-b-2 ${
-                pathname.startsWith("/cart") ? "border-b-neutral-100" : "border-b-transparent"
+                pathname.startsWith("/cart")
+                  ? "border-b-neutral-100"
+                  : "border-b-transparent"
               }`}
             >
               <Link className="p-2 relative group" href={"/cart"}>
@@ -74,7 +88,15 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <LoginDropdown />
+            <div
+              className={`flex items-center h-full border-b-2 ${
+                pathname.startsWith("/login") || pathname.startsWith("/account")
+                  ? "border-b-neutral-100"
+                  : "border-b-transparent"
+              }`}
+            >
+              <LoginDropdown />
+            </div>
           </div>
         </div>
       </WidthController>
