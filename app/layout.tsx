@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Josefin_Sans } from "next/font/google";
 
-import Navbar from "@components/layout/Navbar";
+import Navbar from "@components/layout/navbar/Navbar";
 import Footer from "@components/layout/Footer";
 import WidthController from "@components/layout/WidthController";
 
 import "./globals.css";
 import Providers from "@components/layout/Providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Marketta Bookstore",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} w-full min-h-screen text-gray-200 bg-neutral-900 flex flex-col`}>
+      <body className={`${inter.className} w-full min-h-[200vh] text-gray-200 bg-zinc-900 flex flex-col`}>
         <Providers>
           <Navbar />
           <main className="py-9 flex-grow">

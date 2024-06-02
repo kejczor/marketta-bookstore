@@ -7,6 +7,7 @@ import Image from "next/image";
 import Button from "@components/buttons/Button";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 export default function Login() {
   const { data: session } = useSession();
@@ -41,10 +42,9 @@ export default function Login() {
   );
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-7 [&_h1]:text-3xl [&_h1]:text-center [&_h1]:mb-5">
-      <div className="flex flex-col items-center">
-        <h1>Welcome back to Marketta Bookstore</h1>
-        <h3 className={errorMessage ? "text-xl px-3 py-2 bg-red-600 mb-5" : "mb-2"}>{errorMessage}</h3>
+    <div className="flex">
+      <div className="flex flex-col items-center bg-black p-16 rounded-xl">
+        <h3 className={errorMessage ? "text-xl px-3 py-2 text-red-600 mb-5" : "mb-2"}>{errorMessage}</h3>
         <form
           onSubmit={handleSubmit}
           className="[&_input]:bg-black [&_input]:border-2 [&_input]:py-2 [&_input]:px-4 [&_input]:outline-none [&_input:focus]:bg-gray-700 space-y-3"
@@ -54,7 +54,7 @@ export default function Login() {
             name="usernameOrEmail"
             type="text"
             className={errorMessage && "border-red-600 placeholder:text-red-400 animate-shake"}
-            placeholder="Username or E-mail"
+            placeholder="Username"
           />
           <div className="relative">
             <input
@@ -69,24 +69,15 @@ export default function Login() {
               type="button"
               onClick={() => setIsPasswordVisible((prev) => !prev)}
             >
-              <Image
-                src={"/svg/show-password.svg"}
-                className="invert"
-                alt="show password"
-                width={20}
-                height={20}
-              />
+              {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
             </button>
           </div>
           <Button className="mx-auto" type="submit">
             LOG IN
           </Button>
         </form>
-      </div>
-      <div>
-        <h1>Don&apos;t have an account?</h1>
-        <Link href={"/registration"}>
-          <Button className="mx-auto">SIGN IN NOW</Button>
+        <Link href={"/registration"} className="text-blue-500 hover:underline">
+          Create account
         </Link>
       </div>
     </div>

@@ -15,7 +15,7 @@ export default function StoreCard({
   avargeRate,
 }: StoreitemBasicDetails) {
   return (
-    <div className="flex flex-grow bg-neutral-800 rounded-xl drop-shadow-2xl transition-all hover:scale-105">
+    <div className="flex flex-grow bg-neutral-800 rounded-xl drop-shadow-2xl transition-all">
       <Link href={`/store/${id}`}>
         <div className="w-40 h-64">
           <Image

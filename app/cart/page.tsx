@@ -7,19 +7,16 @@ import CartCard from "@components/cart/CartCard";
 import { formatPrice } from "@utils/functions";
 import { HorizontalSeparator } from "@components/separators";
 
+import Link from "next/link";
+
 export default function Cart() {
   const cart = useCart();
 
   return (
     <div className="flex flex-col lg:flex-row">
       <div className="flex-grow mr-10">
-        <div className="flex mb-8 [&>h3]:w-1/3 [&>h3]:p-2 space-x-3 [&>h3]:border-b-4 [&>h3:not(:first-child)]:border-neutral-500">
-          <h3 className="border-blue-500">Items in cart</h3>
-          <h3>Payment</h3>
-          <h3>Order accepted</h3>
-        </div>
         <h1 className="text-4xl font-bold mb-5">
-          Koszyk
+          Cart
           <span className="text-xl text-neutral-500 ml-2">({cart.countTotalItemsQuantity()})</span>
         </h1>
         {cart.itemsDetails.map((storeitem, i) => (
@@ -48,9 +45,9 @@ export default function Cart() {
             Total price:
             <span className="text-3xl font-bold ml-2">{formatPrice(cart.countTotalCartValue())}</span>
           </h1>
-          <Button disabled title="in development" className="w-full bg-blue-500 font-bold text-xl">
-            Pay
-          </Button>
+          <Link href="/cart/shipping">
+            <Button className="w-full bg-blue-500 font-bold text-xl">Next</Button>
+          </Link>
         </div>
       </aside>
     </div>

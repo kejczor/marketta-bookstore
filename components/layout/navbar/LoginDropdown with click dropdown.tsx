@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { FaUser } from "react-icons/fa6";
+import { redirect } from "next/navigation";
 
 export default function Dropdown() {
   const { data: session } = useSession();
@@ -34,24 +36,17 @@ export default function Dropdown() {
   return (
     <div className="relative">
       <button
-        className="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-all"
+        className="p-1 rounded-xl bg-gray-700 hover:bg-gray-600 transition-all"
         ref={dropdownButtonRef}
         onClick={() => {
           if (session) {
             setIsDropdownOpen((prev) => !prev);
           } else {
-            signIn();
+            redirect("/login");
           }
         }}
       >
-        <Image
-          className={`rounded-full inline aspect-square ${session ? "" : "invert"}`}
-          src={session?.user?.image ?? "/svg/account-circle.svg"}
-          alt="account"
-          width={30}
-          height={30}
-        />
-        <span className={`hidden sm:inline ml-2 text-base`}>{session?.user.name ?? "Log in"}</span>
+        <FaUser size={30} />
       </button>
 
       {/* dropdown part */}

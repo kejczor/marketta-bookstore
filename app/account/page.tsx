@@ -8,7 +8,7 @@ type UserIsSigned = Session & { user: { id: string; image: string; name: string 
 export default async function Account() {
   // assume that session exists because if user wasn't signed in,
   // middleware would block this page and redirect to login page
-  const session = (await getServerSession(authOptions)!) as UserIsSigned;
+  const session = (await getServerSession(authOptions)) as UserIsSigned;
 
   return (
     <div className="flex">
