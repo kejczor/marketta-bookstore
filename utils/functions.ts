@@ -21,32 +21,15 @@ const SYMBOLS_TO_FORMAT = {
   ".": "",
 };
 
-type TO_FORMAT =
-  | "ż"
-  | "ź"
-  | "ć"
-  | "ń"
-  | "ó"
-  | "ł"
-  | "ę"
-  | "ą"
-  | "ś"
-  | " "
-  | ".";
+type TO_FORMAT = "ż" | "ź" | "ć" | "ń" | "ó" | "ł" | "ę" | "ą" | "ś" | " " | ".";
 
 export function formatToURL(title: string) {
   return title
-    .replace(
-      /[żźćńółęąś .]/gi,
-      (match: string) => SYMBOLS_TO_FORMAT?.[match as TO_FORMAT]
-    )
+    .replace(/[żźćńółęąś .]/gi, (match: string) => SYMBOLS_TO_FORMAT?.[match as TO_FORMAT])
     .toLowerCase();
 }
 
-export function assert(
-  condition: unknown,
-  message: string = "Something went wrong"
-): asserts condition {
+export function assert(condition: unknown, message: string = "Something went wrong"): asserts condition {
   if (!condition) throw new Error(message);
 }
 

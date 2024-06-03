@@ -1,3 +1,3 @@
 export default function About() {
-  return <div></div>;
+  return <div>Website created by Bartek</div>;
 }

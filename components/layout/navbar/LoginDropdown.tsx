@@ -35,15 +35,13 @@ export default function Dropdown() {
   }, [isDropdownOpen]);
 
   return (
-    <div className="relative">
+    <div className="relative group">
       <LoginButton />
 
       {/* dropdown part */}
       <div
         ref={dropdownRef}
-        className={`${
-          isDropdownOpen ? "" : "hidden"
-        } absolute right-0 top-16 text-sm divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700 
+        className={`hidden group-hover:block absolute right-0 top-16 text-sm divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-700 
                   [&>div]:py-2 [&>div>*]:py-2 [&>div>*]:px-4 [&>div>a:hover]:bg-gray-600 [&>div>a:hover]:text-white [&>div>a]:block`}
       >
         <div>

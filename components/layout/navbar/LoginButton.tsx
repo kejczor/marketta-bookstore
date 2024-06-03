@@ -9,7 +9,6 @@ export default function LoginButton() {
 
   return (
     <div>
-      {" "}
       <Link
         href={status === "authenticated" ? "/account" : "/login"}
         className="block p-1 rounded-xl bg-gray-700 hover:bg-gray-600 transition-all"

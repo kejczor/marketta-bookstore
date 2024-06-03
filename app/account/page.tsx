@@ -1,7 +1,9 @@
 import { authOptions } from "@app/api/auth/[...nextauth]/route";
+import SignOutButton from "@components/account/SignOutButton";
 import { Session, getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
+import { FaSignOutAlt } from "react-icons/fa";
 
 type UserIsSigned = Session & { user: { id: string; image: string; name: string } };
 
@@ -30,30 +32,35 @@ export default async function Account() {
                 width={30}
                 height={30}
                 className="invert inline"
-              />{" "}
+              />
               Personal Information
             </Link>
           </li>
           <hr />
           <li>
             <Link href="#">
-              <Image src={"/svg/shopping_bag.svg"} alt="" width={30} height={30} className="invert inline" />{" "}
+              <Image src={"/svg/shopping_bag.svg"} alt="" width={30} height={30} className="invert inline" />
               Purchases
             </Link>
           </li>
           <hr />
           <li>
             <Link href="#">
-              <Image src={"/svg/support_agent.svg"} alt="" width={30} height={30} className="invert inline" />{" "}
+              <Image src={"/svg/support_agent.svg"} alt="" width={30} height={30} className="invert inline" />
               Support
             </Link>
           </li>
           <hr />
           <li>
             <Link href="#">
-              <Image src={"/svg/settings.svg"} alt="" width={30} height={30} className="invert inline" />{" "}
+              <Image src={"/svg/settings.svg"} alt="" width={30} height={30} className="invert inline" />
               Settings
             </Link>
+          </li>
+          <hr />
+          <li className="flex">
+            <FaSignOutAlt size={30} />
+            <SignOutButton />
           </li>
         </ul>
       </aside>

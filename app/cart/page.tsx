@@ -8,6 +8,7 @@ import { formatPrice } from "@utils/functions";
 import { HorizontalSeparator } from "@components/separators";
 
 import Link from "next/link";
+import AsideSummary from "@components/cart/AsideSummary";
 
 export default function Cart() {
   const cart = useCart();
@@ -26,30 +27,7 @@ export default function Cart() {
           </Fragment>
         ))}
       </div>
-      <aside>
-        <div className="sticky top-28 mt-12 bg-neutral-800 p-10 rounded-xl space-y-5">
-          <h2 className="mx-2 flex justify-between items-end">
-            Total cart value:
-            <span className="text-xl font-bold w-32 text-right">
-              {formatPrice(cart.countTotalCartValue())}
-            </span>
-          </h2>
-          <h2 className="mx-2 flex justify-between items-end">
-            Shipping cost from:
-            <span className="text-xl font-bold w-32 text-right">
-              {formatPrice(cart.countTotalCartValue())}
-            </span>
-          </h2>
-          <HorizontalSeparator />
-          <h1 className="mx-2 flex justify-between items-end">
-            Total price:
-            <span className="text-3xl font-bold ml-2">{formatPrice(cart.countTotalCartValue())}</span>
-          </h1>
-          <Link href="/cart/shipping">
-            <Button className="w-full bg-blue-500 font-bold text-xl">Next</Button>
-          </Link>
-        </div>
-      </aside>
+      <AsideSummary />
     </div>
   );
 }

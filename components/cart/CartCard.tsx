@@ -6,11 +6,7 @@ import type { StoreitemBasicDetails } from "@app/api/storeitems/route";
 import AddToCartButtonExtended from "@components/buttons/AddToCartButtonDropdown";
 import { useCart } from "@context/CartContext";
 
-export default function CartCard({
-  details,
-}: {
-  details: StoreitemBasicDetails;
-}) {
+export default function CartCard({ details }: { details: StoreitemBasicDetails }) {
   const cart = useCart();
   const storeitemInCartQuantity = cart.quantityInCart(details.id);
   const totalPrice = formatPrice(details.price * storeitemInCartQuantity);
@@ -42,7 +38,7 @@ export default function CartCard({
             <p className="line-clamp-1">{details.publisher}</p>
           </div>
           <div className="text-lg flex items-center justify-end">
-            <span className="mr-7">{formatPrice(details.price)}</span>
+            <span className="mr-3">{formatPrice(details.price)}</span>
             <AddToCartButtonExtended details={details} />
           </div>
           <span className="text-2xl font-bold">{totalPrice}</span>

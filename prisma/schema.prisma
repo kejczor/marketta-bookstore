@@ -65,3 +65,11 @@ model Opinion {
 
   @@unique([authorId, storeitemId])
 }
+
+model ShippingOption {
+  id                      String @id @default(uuid())
+  name                    String
+  price                   Float
+  daysForDelivery         Int
+  latestAcceptedOrderHour Int
+}
