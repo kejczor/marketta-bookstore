@@ -63,16 +63,18 @@ export default function Login() {
             id="usernameOrEmail"
             type="text"
             placeholder="Username"
+            defaultValue="admin"
           />
 
           <div className="relative">
             <Input
               label_text="Password"
+              input_ref={passwordRef}
               id="usernameOrEmail"
               placeholder="Password"
-              input_ref={passwordRef}
               name="password"
               type={isPasswordVisible ? "text" : "password"}
+              defaultValue="123"
             />
             <button
               className="absolute top-1/2 right-2 -translate-x-1/2 -translate-y-1/2"
