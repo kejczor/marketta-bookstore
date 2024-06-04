@@ -1,8 +1,9 @@
 {
   "name": "marketta-bookstore",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
