@@ -3,13 +3,13 @@ import StoreCard from "@components/storepage/StoreCard";
 import { Storeitem } from "@prisma/client";
 import { prisma } from "@prisma/db";
 
-type StoreProps = {
-  sort: "popular" | "publish-date" | "cheap" | "expensive";
-  itemsOnPage: number;
-  pageIndex: number;
-};
+// type StoreProps = {
+//   sort: "popular" | "publish-date" | "cheap" | "expensive";
+//   itemsOnPage: number;
+//   pageIndex: number;
+// };
 
-export default async function Store({ sort, itemsOnPage, pageIndex }: StoreProps) {
+export default async function Store(/*{ sort, itemsOnPage, pageIndex }: StoreProps*/) {
   const storeitems = await prisma.storeitem.findMany();
 
   return (
